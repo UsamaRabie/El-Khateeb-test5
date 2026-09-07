@@ -568,16 +568,24 @@ main section,section[class]{scroll-margin-top:100px}
 .upload.drag{background:rgba(23,78,88,.16);border-color:var(--teal2)}
 
 @media(max-width:1050px){
+  .nav{background:rgba(243,242,236,.94);backdrop-filter:none;-webkit-backdrop-filter:none}
   .nav-links{
     display:flex;position:fixed;inset:0;z-index:110;margin:0;
     flex-direction:column;align-items:center;justify-content:center;gap:6px;
-    background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);
+    background:transparent;
     color:#fff;
-    clip-path:circle(0px at var(--ox,0px) var(--oy,0px));
-    transition:clip-path .65s cubic-bezier(.77,0,.175,1);
-    visibility:hidden;pointer-events:none;
+    pointer-events:none;
   }
-  .nav.open .nav-links{clip-path:circle(calc(100vmax*1.7) at var(--ox,0px) var(--oy,0px));visibility:visible;pointer-events:auto}
+  .nav-links:before{
+    content:"";position:absolute;left:var(--ox,0px);top:var(--oy,0px);
+    width:2px;height:2px;border-radius:50%;
+    background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);
+    transform:scale(0);transform-origin:0 0;
+    transition:transform .65s cubic-bezier(.77,0,.175,1);
+    pointer-events:none;z-index:-1;will-change:transform;
+  }
+  .nav.open .nav-links{pointer-events:auto}
+  .nav.open .nav-links:before{transform:scale(3000)}
   .nav-links a{color:#fff;font-size:1.14rem;font-weight:800;padding:11px 32px;border-radius:999px;transition:.3s;opacity:0;transform:translateY(12px)}
   .nav.open .nav-links a{opacity:1;transform:none;transition:opacity .4s ease .12s,transform .4s ease .12s,background .3s}
   .nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
@@ -701,6 +709,69 @@ main section,section[class]{scroll-margin-top:100px}
   .cbk-nav:hover{transform:scale(1.1)}
 }
 @media(max-width:450px){.cbk-img{min-height:172px}.cbk-feats span{font-size:.64rem}.cbk-index{font-size:1.4rem}}
+
+/* ============================================================
+   RESPONSIVE / LAYOUT FIX PASS
+   kills horizontal overflow (left empty space + side scroll),
+   stops hero image collisions, nails mobile bars + menu
+   ============================================================ */
+html{overflow-x:hidden}
+body{overflow-x:hidden;max-width:100%}
+.products,.benefits{overflow:hidden}
+.float-orb{max-width:min(340px,88vw)}
+.direction{overflow:hidden}
+.b-layout>div:first-child{width:56%;height:76%}
+.b-layout>.direction-copy{width:38%}
+.b-second{width:38%;height:50%;right:1%}
+.c-layout>.direction-copy{width:34%}
+.ui-c{width:60%}
+@media(max-width:1100px){
+  .hero-3d-orb{display:none}
+  .visual-map{display:none}
+}
+@media(max-width:1050px){
+  .nav-inner{gap:14px}
+  .nav-links a{padding:13px 34px}
+}
+@media(max-width:760px){
+  .hero-board{margin-top:62px}
+  .board-title{padding:12px 4px 4px}
+  .nav{padding:8px 0}
+  .brand{gap:9px}
+  .brand img{width:40px;height:40px}
+  .brand-text strong{font-size:.82rem}
+  .brand-text small{font-size:.56rem;margin-top:4px}
+  .nav-actions{gap:6px}
+  .lang{padding:8px 12px;font-size:.72rem}
+  .gt-wrap{width:min(150px,88%);gap:6px}
+  .g-thumb{width:36px;height:36px;flex-basis:36px}
+  .g-info b{font-size:.68rem;white-space:normal;line-height:1.25}
+  .g-cta{display:none}
+  .direction{padding:12px 14px}
+  .direction-copy{margin-top:9px}
+  .a-visual{height:52%;bottom:8px;left:14px;right:12px}
+  .board-logo{width:62px;height:62px;bottom:10px}
+  .ui-a{width:58%}
+  .b-layout{height:172px;margin-top:12px}
+  .c-layout{height:172px;margin-top:12px}
+  .b-layout>div:first-child{width:56%}
+  .b-layout>.direction-copy{width:40%}
+  .b-second{width:37%}
+  .c-layout>.direction-copy{width:36%}
+  .ui-c{width:60%;height:94%}
+  .solution-art{height:150px;margin-top:5px}
+  .factory{font-size:34px}
+  .tool-icon{font-size:46px}
+  .wrench{font-size:30px}
+  .drill{font-size:44px}
+  .solution-icons{grid-template-columns:repeat(3,34px);gap:6px}
+  .solution-icons span{width:34px;height:34px;font-size:14px}
+}
+@media(max-width:380px){
+  .brand-text strong{font-size:.76rem}
+  .lang{font-size:.68rem;padding:7px 10px}
+  .menu{width:42px;height:42px}
+}
 </style>
 </head>
 
