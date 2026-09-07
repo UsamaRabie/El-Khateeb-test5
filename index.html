@@ -1489,7 +1489,7 @@ function renderCbkSlider(){
       <div class="cbk-img">
         ${p.badge==='rec'?'<span class="cbk-badge">'+(lang==='ar'?'★ موصى به':'★ RECOMMENDED')+'</span>':''}
         <span class="cbk-index">0${k+1} / CBK</span>
-        <img src="${imgOf(p)}" alt="${p.n}" loading="lazy">
+<img src="${imgOf(p)}" alt="${p.n}" decoding="async">
       </div>
       <div class="cbk-body">
         <div class="product-cat">${lang==='ar'?'● غسيل السيارات — CBK':'● CAR WASH — CBK'}</div>
