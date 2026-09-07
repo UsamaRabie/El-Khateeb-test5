@@ -473,7 +473,9 @@ html{scrollbar-width:thin;scrollbar-color:var(--teal) #e8ebe6}
 .mini-order:hover{background:var(--teal)}
 .mini-product img{transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .mini-product:hover img{transform:scale(1.07)}
-button.mini-product{width:100%;text-align:right;font-family:inherit;color:inherit;-webkit-appearance:none;appearance:none}
+button.mini-product{width:100%;text-align:right;font-family:inherit;color:var(--ink);-webkit-appearance:none;appearance:none}
+button.mini-product h4,button.mini-product small,button.mini-product .mini-price{color:var(--ink)}
+button.mini-product .mini-price{color:var(--teal)}
 button.mini-product .mini-order{font-family:inherit}
 
 /* product modal */
@@ -616,6 +618,89 @@ main section,section[class]{scroll-margin-top:100px}
   .benefit-bar{grid-template-columns:1fr 1fr}
   .up-txt small{font-size:.68rem}
 }
+
+/* ============================================================
+   CBK WASH MACHINES AUTO SLIDER + extra motion & 3D interactions
+   ============================================================ */
+.cbk-stage{position:relative;overflow:hidden}
+.cbk-track{display:flex;transition:transform .85s cubic-bezier(.22,1,.36,1);will-change:transform}
+.cbk-slide{
+  flex:0 0 100%;min-width:0;display:grid;grid-template-columns:6fr 7fr;
+  background:var(--white);border:1px solid #c6d1cc;box-shadow:0 30px 80px rgba(7,28,31,.16);
+  overflow:hidden;position:relative;
+}
+.cbk-slide.active{animation:cbkCardIn .85s cubic-bezier(.22,1,.36,1) both}
+@keyframes cbkCardIn{from{opacity:0;transform:perspective(1200px) rotateX(6deg) translateY(16px) scale(.982)}to{opacity:1;transform:none}}
+.cbk-img{position:relative;overflow:hidden;min-height:360px;background:#dfe4df}
+.cbk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04)}
+.cbk-slide.active .cbk-img img{animation:cbkKen 6s ease-in-out infinite alternate}
+@keyframes cbkKen{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.18) translate(-1.4%,1.4%)}}
+.cbk-img:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 32%,rgba(255,255,255,.26) 50%,transparent 68%)}
+.cbk-water{
+  position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:overlay;z-index:1;
+  background:
+    radial-gradient(ellipse at 22% 82%,rgba(23,78,88,.55) 0,transparent 55%),
+    radial-gradient(ellipse at 78% 18%,rgba(23,78,88,.4) 0,transparent 50%);
+  animation:cbkWash 7s ease-in-out infinite alternate;
+}
+@keyframes cbkWash{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+.cbk-badge{position:absolute;top:16px;right:16px;z-index:3;background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;font-size:.68rem;font-weight:900;padding:7px 12px;letter-spacing:.08em;border-radius:999px;box-shadow:0 8px 18px rgba(23,78,88,.4)}
+.cbk-index{position:absolute;bottom:14px;left:16px;z-index:3;color:rgba(255,255,255,.94);font-size:1.9rem;font-weight:900;letter-spacing:.02em;text-shadow:0 2px 12px rgba(0,0,0,.45)}
+.cbk-body{padding:30px 32px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+.cbk-body .product-cat{letter-spacing:.16em;font-size:.7rem}
+.cbk-body h3{font-size:2.1rem;line-height:1;margin:10px 0 4px;color:var(--deep)}
+.cbk-body>p{color:var(--muted);line-height:1.9;font-size:.92rem;margin:10px 0 0}
+.cbk-feats{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.cbk-feats span{border:1px solid #b9c7c3;background:#eef2ee;color:var(--teal);font-size:.7rem;font-weight:800;padding:6px 11px;border-radius:999px;transition:.3s}
+.cbk-slide.active .cbk-feats span{animation:cbkChip .5s cubic-bezier(.34,1.56,.64,1) both}
+.cbk-slide.active .cbk-feats span:nth-child(2){animation-delay:.09s}
+.cbk-slide.active .cbk-feats span:nth-child(3){animation-delay:.18s}
+@keyframes cbkChip{from{opacity:0;transform:translateY(10px) scale(.8)}to{opacity:1;transform:none}}
+.cbk-capac{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-size:.75rem;font-weight:800;color:var(--deep);border:1px dashed #a8bbb6;background:#f6f8f2;padding:8px 12px;border-radius:999px}
+.cbk-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid var(--line);margin-top:20px;padding-top:18px}
+.cbk-foot .price{font-size:1.55rem;font-weight:900;color:var(--teal)}
+.cbk-nav{
+  position:absolute;top:calc(50% - 40px);transform:translateY(-50%);z-index:6;
+  width:46px;height:46px;border-radius:50%;border:1px solid var(--teal);cursor:pointer;
+  background:rgba(255,255,255,.96);color:var(--teal);font-size:1.5rem;line-height:1;padding:0;
+  transition:.35s;display:grid;place-items:center;font-family:inherit;
+  box-shadow:0 10px 26px rgba(23,78,88,.25);
+}
+.cbk-nav:hover{background:var(--teal);color:#fff;transform:translateY(-50%) scale(1.12)}
+.cbk-nav.prev{left:14px}.cbk-nav.next{right:14px}
+.cbk-ui{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:20px}
+.cbk-dot{width:9px;height:9px;border:0;border-radius:999px;background:#b9c7c3;padding:0;cursor:pointer;transition:.35s}
+.cbk-dot:hover{transform:scale(1.3)}
+.cbk-dot.on{width:30px;background:var(--teal)}
+.cbk-glare{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.cbk-glare:after{content:"";position:absolute;top:-20%;bottom:-20%;width:34%;left:-45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);animation:cbkGlare 6s ease-in-out infinite}
+@keyframes cbkGlare{0%,60%{left:-45%}92%,100%{left:135%}}
+
+/* global micro-interactions & 3D punch */
+.step-number,.feature-no,.info-icon,.cbk-feats span{transition:transform .45s cubic-bezier(.22,1,.36,1),color .3s,background .3s}
+.step:hover .step-number{transform:rotate(-8deg) scale(1.18);color:var(--teal)}
+.feature-item:hover .feature-no{transform:rotate(-10deg) scale(1.2);color:var(--teal)}
+.feature-item:hover h3{color:var(--teal)}
+.info:hover .info-icon{transform:rotate(-12deg) scale(1.1);background:var(--teal);border-color:var(--teal);color:#fff}
+.cbk-feats span:hover{transform:translateY(-2px) scale(1.06);background:var(--teal);color:#fff;border-color:var(--teal)}
+.product-card .product-image:after{
+  content:"";position:absolute;top:0;left:-90%;width:55%;height:100%;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .8s ease;
+}
+.product-card:hover .product-image:after{left:150%}
+.cta-mini,.pm-ov .ord{-webkit-tap-highlight-color:transparent}
+@media(max-width:700px){
+  .cbk-slide{grid-template-columns:1fr}
+  .cbk-img{min-height:215px}
+  .cbk-body{padding:20px 18px}
+  .cbk-body h3{font-size:1.5rem}
+  .cbk-foot .price{font-size:1.25rem}
+  .cbk-nav{width:40px;height:40px;top:auto;bottom:80px;transform:none}
+  .cbk-nav.prev{left:10px}.cbk-nav.next{right:10px}
+  .cbk-nav:hover{transform:scale(1.1)}
+}
+@media(max-width:450px){.cbk-img{min-height:172px}.cbk-feats span{font-size:.64rem}.cbk-index{font-size:1.4rem}}
 </style>
 </head>
 
@@ -717,61 +802,15 @@ main section,section[class]{scroll-margin-top:100px}
       </p>
     </div>
 
-    <div class="product-grid">
-      <article class="product-card reveal" data-idx="0">
-        <div class="product-image">
-          <span class="product-index">01 / CBK</span>
-          <img src="CBK machines/images.jfif" alt="CBK 208">
-        </div>
-        <div class="product-body">
-          <div class="product-cat" data-ar="● غسيل السيارات" data-en="● WASH MACHINES">● غسيل السيارات</div>
-          <h3>CBK 208</h3>
-          <p data-ar="غسيل روبوتي ذكي بدون لمس مع رش رغوة 360°."
-             data-en="Smart touchless robotic wash with 360° foam spray.">غسيل روبوتي ذكي بدون لمس مع رش رغوة 360°.</p>
-          <div class="feat" data-ar="رش رغوة 360°" data-en="360° foam spray">رش رغوة 360°</div>
-          <div class="feat" data-ar="غسيل عالي الضغط" data-en="High-pressure washing">غسيل عالي الضغط</div>
-          <div class="feat" data-ar="تحكم تلقائي بالكمبيوتر" data-en="Automatic computer control">تحكم تلقائي بالكمبيوتر</div>
-          <div class="card-capac">⚙ <span data-ar="الاستيعاب: 40–60 سيارة/ساعة" data-en="Capacity: 40–60 cars/h">الاستيعاب: 40–60 سيارة/ساعة</span></div>
-          <div class="product-foot"><span class="price">145,000 ر.س</span><button class="ord" data-idx="0" data-ar="اطلب ←" data-en="Order →">اطلب ←</button></div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-idx="1">
-        <div class="product-image">
-          <span class="product-index">02 / CBK</span>
-          <span class="badge-rec" data-ar="موصى به" data-en="Recommended">موصى به</span>
-          <img src="CBK machines/images (1).jfif" alt="CBK 308">
-        </div>
-        <div class="product-body">
-          <div class="product-cat" data-ar="● غسيل السيارات" data-en="● WASH MACHINES">● غسيل السيارات</div>
-          <h3>CBK 308</h3>
-          <p data-ar="نظام ذكي متقدم بدون لمس مع كشف ثلاثي الأبعاد."
-             data-en="Advanced smart touchless system with 3D detection.">نظام ذكي متقدم بدون لمس مع كشف ثلاثي الأبعاد.</p>
-          <div class="feat" data-ar="كشف ثلاثي الأبعاد لحجم المركبة" data-en="3D vehicle detection">كشف ثلاثي الأبعاد لحجم المركبة</div>
-          <div class="feat" data-ar="ضغط مياه حتى 12 ميجاباسكال" data-en="Pressure up to 12 MPa">ضغط مياه حتى 12 ميجاباسكال</div>
-          <div class="feat" data-ar="نظام تجفيف هوائي محسّن" data-en="Enhanced air-dry system">نظام تجفيف هوائي محسّن</div>
-          <div class="card-capac">⚙ <span data-ar="الاستيعاب: 60–80 سيارة/ساعة" data-en="Capacity: 60–80 cars/h">الاستيعاب: 60–80 سيارة/ساعة</span></div>
-          <div class="product-foot"><span class="price">220,000 ر.س</span><button class="ord" data-idx="1" data-ar="اطلب ←" data-en="Order →">اطلب ←</button></div>
-        </div>
-      </article>
-
-      <article class="product-card reveal" data-idx="2">
-        <div class="product-image">
-          <span class="product-index">03 / CBK</span>
-          <img src="CBK machines/images (2).jfif" alt="CBK Professional">
-        </div>
-        <div class="product-body">
-          <div class="product-cat" data-ar="● غسيل السيارات" data-en="● WASH MACHINES">● غسيل السيارات</div>
-          <h3>CBK Professional</h3>
-          <p data-ar="تجربة غسيل فاخرة مع دورات غسيل قوية."
-             data-en="Premium washing experience with powerful cycles.">تجربة غسيل فاخرة مع دورات غسيل قوية.</p>
-          <div class="feat" data-ar="فصل الرغوة والمياه" data-en="Foam & water separation">فصل الرغوة والمياه</div>
-          <div class="feat" data-ar="دورات غسيل قوية" data-en="Powerful wash cycles">دورات غسيل قوية</div>
-          <div class="feat" data-ar="مؤثرات بصرية فاخرة" data-en="Premium visual effects">مؤثرات بصرية فاخرة</div>
-          <div class="card-capac">⚙ <span data-ar="الاستيعاب: 80–120 سيارة/ساعة" data-en="Capacity: 80–120 cars/h">الاستيعاب: 80–120 سيارة/ساعة</span></div>
-          <div class="product-foot"><span class="price">320,000 ر.س</span><button class="ord" data-idx="2" data-ar="اطلب ←" data-en="Order →">اطلب ←</button></div>
-        </div>
-      </article>
+    <div class="cbk-stage reveal" id="cbkStage">
+      <div class="cbk-glare"></div>
+      <div class="cbk-track" id="cbkTrack"></div>
+      <div class="cbk-water"></div>
+      <div class="cbk-ui">
+        <button class="cbk-nav prev" id="cbkPrev" aria-label="Previous">‹</button>
+        <div class="cbk-dots" id="cbkDots"></div>
+        <button class="cbk-nav next" id="cbkNext" aria-label="Next">›</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1066,8 +1105,13 @@ if(window.gsap){
     gsap.to('.hero-3d-orb',{scale:1.06,duration:3,ease:'sine.inOut',repeat:-1,yoyo:true});
   }
   gsap.utils.toArray('.product-card').forEach((card,i)=>{
-    gsap.from(card,{scrollTrigger:{trigger:card,start:'top 88%'},opacity:0,y:55,rotation:i%2?1:-1,duration:.8,ease:'power3.out'});
+    gsap.from(card,{scrollTrigger:{trigger:card,start:'top 88%'},opacity:0,y:55,rotation:i%2?1:-1,duration:.8,ease:'power3.out',clearProps:'transform'});
   });
+  gsap.utils.toArray('.cat').forEach((cat,i)=>{
+    gsap.from(cat,{scrollTrigger:{trigger:cat,start:'top 92%'},opacity:0,y:16,duration:.55,delay:i%6*.06,ease:'power3.out'});
+  });
+  gsap.from('.info',{scrollTrigger:{trigger:'.contact-info',start:'top 90%'},x:28,opacity:0,stagger:.09,duration:.6,ease:'power3.out',clearProps:'transform'});
+  gsap.from('.footer-grid>div',{scrollTrigger:{trigger:'footer',start:'top 95%'},y:22,opacity:0,stagger:.1,duration:.7,ease:'power3.out',clearProps:'transform'});
 }
 
 /* -----------------------------
@@ -1241,7 +1285,7 @@ function imgOf(p){ return encodeURI(p.img); }
 function priceOf(p){ return lang==='ar' ? p.price+' ر.س' : p.price+' SAR'; }
 const PLACEHOLDER='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="700" height="500"%3E%3Crect width="700" height="500" fill="%23e8ebe6"/%3E%3Crect x="255" y="70" width="190" height="115" fill="none" stroke="%23174e58" stroke-width="10"/%3E%3Ccircle cx="455" cy="185" r="60" fill="none" stroke="%23174e58" stroke-width="10"/%3E%3Ctext x="350" y="400" font-family="Arial" font-size="48" font-weight="bold" fill="%23174e58" text-anchor="middle"%3ETECHWORLD%3C/text%3E%3Ctext x="350" y="440" font-family="Arial" font-size="20" fill="%23657477" text-anchor="middle"%3Etechworld.sa%3C/text%3E%3C/svg%3E';
 function bindImgFallbacks(){
-  document.querySelectorAll('.product-card img,.mini-product img,.g-thumb img,.pm-img img').forEach(img=>{
+  document.querySelectorAll('.product-card img,.mini-product img,.g-thumb img,.pm-img img,.cbk-img img').forEach(img=>{
     if(img.dataset.fbBound) return;
     img.dataset.fbBound='1';
     img.addEventListener('error',function(){ if(!this.dataset.fb){ this.dataset.fb='1'; this.src=PLACEHOLDER; } });
@@ -1430,9 +1474,77 @@ qForm.addEventListener('submit',e=>{
   });
 })();
 
+/* ============ CBK wash machines auto slider ============ */
+let cbkCtx=null, cbkBounded=false;
+function renderCbkSlider(){
+  const track=document.getElementById('cbkTrack');
+  const stage=document.getElementById('cbkStage');
+  const dotsBox=document.getElementById('cbkDots');
+  if(!track||!stage||!dotsBox) return;
+  if(cbkCtx&&cbkCtx.stop) cbkCtx.stop();
+  const list=PRODUCTS.map((p,i)=>({p,i})).filter(x=>x.p.cat==='wash');
+  if(!list.length) return;
+  track.innerHTML=list.map(({p,i},k)=>`
+    <div class="cbk-slide${k===0?' active':''}" data-idx="${i}">
+      <div class="cbk-img">
+        ${p.badge==='rec'?'<span class="cbk-badge">'+(lang==='ar'?'★ موصى به':'★ RECOMMENDED')+'</span>':''}
+        <span class="cbk-index">0${k+1} / CBK</span>
+        <img src="${imgOf(p)}" alt="${p.n}" loading="lazy">
+      </div>
+      <div class="cbk-body">
+        <div class="product-cat">${lang==='ar'?'● غسيل السيارات — CBK':'● CAR WASH — CBK'}</div>
+        <h3>${p.n}</h3>
+        <p>${p.desc[lang==='ar'?0:1]}</p>
+        <div class="cbk-feats">${p.feats.map(f=>`<span>${f[lang==='ar'?0:1]}</span>`).join('')}</div>
+        <div class="cbk-capac">⚙ ${lang==='ar'?p.specs[4][0]:'Capacity'}: ${p.specs[4][1]}</div>
+        <div class="cbk-foot">
+          <span class="price">${priceOf(p)}</span>
+          <button class="ord" data-idx="${i}">${lang==='ar'?'اطلب الآن ←':'ORDER NOW →'}</button>
+        </div>
+      </div>
+    </div>`).join('');
+  const slides=[...track.children];
+  const total=slides.length;
+  let cur=0,timer=null;
+  const drawDots=()=>dotsBox.innerHTML=slides.map((s,k)=>`<button class="cbk-dot${k===cur?' on':''}" data-k="${k}" aria-label="${k+1}"></button>`).join('');
+  const go=(k)=>{ cur=(k+total)%total; cbkCtx.cur=cur; track.style.transform='translateX(-'+(cur*100)+'%)'; slides.forEach((s,k)=>s.classList.toggle('active',k===cur)); drawDots(); };
+  const play=()=>{ stop(); timer=setInterval(()=>go(cur+1),4200); };
+  const stop=()=>{ if(timer){ clearInterval(timer); timer=null; } };
+  cbkCtx={cur:0,go,play,stop};
+  drawDots(); play();
+  if(!cbkBounded){
+    cbkBounded=true;
+    document.getElementById('cbkPrev').addEventListener('click',()=>{ cbkCtx.go(cbkCtx.cur-1); cbkCtx.play(); });
+    document.getElementById('cbkNext').addEventListener('click',()=>{ cbkCtx.go(cbkCtx.cur+1); cbkCtx.play(); });
+    dotsBox.addEventListener('click',e=>{ const d=e.target.closest('.cbk-dot'); if(d){ cbkCtx.go(+d.dataset.k); cbkCtx.play(); } });
+    stage.addEventListener('mouseenter',()=>cbkCtx.stop());
+    stage.addEventListener('mouseleave',()=>cbkCtx.play());
+    let sx=null;
+    track.addEventListener('pointerdown',e=>sx=e.clientX);
+    track.addEventListener('pointerup',e=>{ if(sx===null)return; const dx=e.clientX-sx; sx=null; if(Math.abs(dx)>38){ cbkCtx.go(cbkCtx.cur+(dx<0?1:-1)); cbkCtx.play(); } });
+    track.addEventListener('pointercancel',()=>sx=null);
+    document.addEventListener('visibilitychange',()=>{ document.hidden?cbkCtx.stop():cbkCtx.play(); });
+  }
+}
+
+/* ============ 3D tilt on cards ============ */
+(function(){
+  if(!(window.matchMedia&&window.matchMedia('(hover:hover) and (pointer:fine)').matches)) return;
+  document.querySelectorAll('.product-card,.mini-product,.benefit,.info').forEach(c=>{
+    c.style.transition='transform .18s ease-out';
+    c.addEventListener('pointermove',e=>{
+      const r=c.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5;
+      const py=(e.clientY-r.top)/r.height-.5;
+      c.style.transform='perspective(950px) rotateX('+(-py*7).toFixed(2)+'deg) rotateY('+(px*10).toFixed(2)+'deg) translateY(-4px)';
+    });
+    c.addEventListener('pointerleave',()=>{ c.style.transform=''; });
+  });
+})();
+
 /* ============ init + lang re-render ============ */
-window.addEventListener('langchange',()=>{ renderCatalog(); renderHeroTiles(); renderSelect(); bindImgFallbacks(); });
-renderCatalog(); renderHeroTiles(); renderSelect(); bindImgFallbacks();
+window.addEventListener('langchange',()=>{ renderCatalog(); renderHeroTiles(); renderSelect(); bindImgFallbacks(); renderCbkSlider(); if(window.gsap){ gsap.from('.g-tile',{y:24,opacity:0,stagger:.08,duration:.7,clearProps:'transform',ease:'power3.out'}); gsap.from('.cbk-slide',{y:18,opacity:0,stagger:.1,duration:.6,ease:'power3.out'}); } });
+renderCatalog(); renderHeroTiles(); renderSelect(); bindImgFallbacks(); renderCbkSlider();
 </script>
 </body>
 </html>
