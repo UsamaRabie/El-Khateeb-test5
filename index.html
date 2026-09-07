@@ -568,23 +568,27 @@ main section,section[class]{scroll-margin-top:100px}
 .upload.drag{background:rgba(23,78,88,.16);border-color:var(--teal2)}
 
 @media(max-width:1050px){
-  .nav{background:rgba(243,242,236,.94);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav{background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav.scrolled{background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);box-shadow:0 1px 0 rgba(8,20,22,.18)}
+  .brand-text strong{color:#fff}
+  .brand-text small{color:#cfe6df}
   .nav-links{
     display:flex;position:fixed;inset:0;z-index:110;margin:0;
     flex-direction:column;align-items:center;justify-content:center;gap:6px;
-    background:transparent;
+    background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);
     color:#fff;
-    pointer-events:none;
+    opacity:0;pointer-events:none;
+    transition:opacity .35s ease .28s;
   }
   .nav-links:before{
     content:"";position:absolute;left:var(--ox,0px);top:var(--oy,0px);
     width:2px;height:2px;border-radius:50%;
     background:radial-gradient(circle at 50% 38%,#1e5c68,#0b343b 72%);
     transform:scale(0);transform-origin:0 0;
-    transition:transform .65s cubic-bezier(.77,0,.175,1);
-    pointer-events:none;z-index:-1;will-change:transform;
+    transition:transform .7s cubic-bezier(.77,0,.175,1);
+    pointer-events:none;z-index:-1;
   }
-  .nav.open .nav-links{pointer-events:auto}
+  .nav.open .nav-links{opacity:1;pointer-events:auto;transition:opacity .3s ease}
   .nav.open .nav-links:before{transform:scale(3000)}
   .nav-links a{color:#fff;font-size:1.14rem;font-weight:800;padding:11px 32px;border-radius:999px;transition:.3s;opacity:0;transform:translateY(12px)}
   .nav.open .nav-links a{opacity:1;transform:none;transition:opacity .4s ease .12s,transform .4s ease .12s,background .3s}
@@ -631,18 +635,16 @@ main section,section[class]{scroll-margin-top:100px}
    CBK WASH MACHINES AUTO SLIDER + extra motion & 3D interactions
    ============================================================ */
 .cbk-stage{position:relative;overflow:hidden}
-.cbk-track{display:flex;transition:transform .85s cubic-bezier(.22,1,.36,1);will-change:transform}
+.cbk-track{display:flex;transition:transform .85s cubic-bezier(.22,1,.36,1)}
 .cbk-slide{
   flex:0 0 100%;min-width:0;display:grid;grid-template-columns:6fr 7fr;
   background:var(--white);border:1px solid #c6d1cc;box-shadow:0 30px 80px rgba(7,28,31,.16);
   overflow:hidden;position:relative;
 }
 .cbk-slide.active{animation:cbkCardIn .85s cubic-bezier(.22,1,.36,1) both}
-@keyframes cbkCardIn{from{opacity:0;transform:perspective(1200px) rotateX(6deg) translateY(16px) scale(.982)}to{opacity:1;transform:none}}
+@keyframes cbkCardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .cbk-img{position:relative;overflow:hidden;min-height:360px;background:#dfe4df}
-.cbk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04)}
-.cbk-slide.active .cbk-img img{animation:cbkKen 6s ease-in-out infinite alternate}
-@keyframes cbkKen{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.18) translate(-1.4%,1.4%)}}
+.cbk-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cbk-img:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 32%,rgba(255,255,255,.26) 50%,transparent 68%)}
 .cbk-water{
   position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:overlay;z-index:1;
